@@ -1,16 +1,15 @@
 version: "3"
 services:
-    web:
-        build: .
-        ports: 
-            - "3000:3000"
-        volumes: 
-            - .:/home/node/src
-            - /home/node/src/node_modules
-        links: 
-            - db
-        environment: 
-            MONGO_CONNECTION_STRING: mongodb://db:27017
-    db:
-        image: mongo:3
-
+  web:
+    build: . #we specify that the Dockerfile is here in the main directory
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/home/node/src #. is used to specify the current directory and : binds the curr dir with src
+      - /home/node/src/node_modules #the node_modules folder is neglected
+    links:
+      - db #we link we with db to connect with it so first db is configured then web is configured
+    environment:
+      MONGO_CONNECTION_STRING: mongodb://db:27017 #we specify the env variables here
+  db:
+    image: mongo:3
